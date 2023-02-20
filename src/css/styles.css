@@ -44,8 +44,26 @@ body {
 }
 
 .search-form button:before {
-  content: '\F002';
+  content: '\27A4';
   font-family: FontAwesome;
-  font-size: 16px;
+  font-size: 24px;
   color: #F9F0DA;
+}
+
+.gallery {
+  margin: 30px auto;
+}
+
+.load-more {
+  display: block;
+  background: #7BA7AB;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 900;
+  width: 150px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 30px;
+  border-style: none;
 }
