@@ -9,6 +9,7 @@ const btn = document.querySelector(".load-more");
 
 let page = 1;
 let query = '';
+let maxHits = 0;
 
 function clearMarkup() {
     page = 1;
@@ -56,26 +57,27 @@ function loadMore(query) {
             if (response.status !== 200) {
                 throw new Error(response.status);
             }
+            maxHits = response.data.totalHits;
+            if (page === 2) Notiflix.Notify.success(`Hooray! We found ${maxHits} images.`);;
             return response.data.hits;
         })
         .then(data => {
             if (data.length === 0) {
                 return Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
             };
-            console.log(data);
             addMarkup(data);
         })
         .catch(error => {
             Notiflix.Notify.failure(error);
         });
+    
+    btn.style.display = "block";
     page += 1;
 };
 
 function onSubmit(event) {
     event.preventDefault();
     query = search.elements.searchQuery.value.trim();
-    console.log(query);
-    console.log(query.length);
     if (query.length === 0) {
         return clearMarkup();
     } else if (query.length === 1) {
@@ -87,8 +89,13 @@ function onSubmit(event) {
     }
 };
 
-search.addEventListener('submit', onSubmit);
-btn.addEventListener('click', loadMore(query));
+function onNeedMore() {
+    if (maxHits < 40 * (page-1)) {
+        return Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
+    };
+    loadMore(query);
+};
 
-console.log(query);
-console.log(query.length);
+btn.style.display = "none";
+search.addEventListener('submit', onSubmit);
+btn.addEventListener('click', onNeedMore);
