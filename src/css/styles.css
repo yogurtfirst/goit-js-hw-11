@@ -22,6 +22,9 @@ body {
 
 .header {
   background: #A3D0C3;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
 }
 
 .search-form {
@@ -71,7 +74,7 @@ body {
   list-style: none;
   margin-left: auto;
   margin-right: auto;
-  padding: 30px 0px;
+  padding: 60px 0px;
 }
 
 .photo-card {

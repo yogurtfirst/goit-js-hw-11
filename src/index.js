@@ -48,6 +48,16 @@ function addMarkup(data) {
         captionsData: "alt",
         captionPosition: "bottom",
         captionDelay: 250,
+        spinner: true,
+    });
+    let coolDown = null;
+    lightbox.on('shown.simplelightbox', () => {
+        coolDown = setInterval(() => {
+                lightbox.next();
+        }, 7000);
+    });
+    lightbox.on('close.simplelightbox', () => {
+        clearInterval(coolDown);
     });
 };
 
